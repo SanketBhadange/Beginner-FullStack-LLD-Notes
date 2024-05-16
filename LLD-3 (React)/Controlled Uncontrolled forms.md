@@ -74,7 +74,6 @@ function UncontrolledForm() {
 }
 ```
 Choosing the Right Approach:
-
 For most cases, controlled components are recommended due to their advantages in validation, error handling, and predictability.
 Uncontrolled components might be suitable for very simple forms where validation is minimal and direct DOM manipulation is preferred.
 Remember, the best approach depends on the specific needs of your form and the level of control you require over the form data and validation.
