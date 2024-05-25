@@ -14,7 +14,7 @@ It can only be accessed after passing ones credentials only after which can one 
 ### How does it work?
 If the token is already present in the browser local storage system knows that user is logged in. 
 
-```javascript
+``` JavaScript
 const token = jwt.sign({userID: user_id}, process.env.jwt_secret, {expires})
 ```
 ### Properties Used: 
@@ -27,7 +27,7 @@ Our objective is to retrieve the userID of the currently signed-in user. Followi
 * Additionally, we employ a property that defines the token's lifespan, ensuring that after a user logs in, they will have access for only one day. 
 * Subsequently, once the token expires, the user will need to log in again. 
 
-```javascript
+``` JavaScript
 console.log(token)
 
 res.send({
@@ -41,7 +41,7 @@ res.send({
 ## Implementation of a protected route?
 Once the token is generated and sent to the database which will then be used to implement a protected route only after which will a user be able to access the content of a particular route
 
-```javascript
+``` JavaScript
 router.get('/get-current-user', authMiddleware, async (req, res) => {
     try{
         const user = await User.findById(req.body.userId).select('')
@@ -66,7 +66,7 @@ Here `/get-current-user` is a protected route,
 
 Only if the token is present in the database (generated prior by jwt_secret) only then we will allow the user to access the contents. 
 
-```javascript
+``` JavaScript
 module.exports = function(req, res, next){
     try{
         const token = req.headers.authorization.split('')[1]
@@ -89,8 +89,7 @@ Returning to our earlier code, we retrieve the userID and omit the password as i
 Now that the backend part is done we need to move onto the front end part of this
 
 Let's see checks needed for login function
-
-```javascript
+``` JavaScript
 import React from 'react'
 
 const ProtectedRoute = ({childern}) => {
@@ -106,7 +105,7 @@ Here,
 ### Redux
 As we move further manging a state is diffcult which is why we'll be using redux
 
-```javascript
+``` JavaScript
 npm install @reduxjs/toolkit
 npm install react-redux
 ```
@@ -114,7 +113,7 @@ npm install react-redux
 We're using redux here to basically use a loader whenever a user logs in
 
 Three files can be created as following
-```javascript
+``` JavaScript
 /redux
 - loaderSlice.js
 - store.js
@@ -122,7 +121,7 @@ Three files can be created as following
 
 ```
 **userSlice.js**
-```javascript!
+``` JavaScript
 import {createSlice} from '@reduxjs/toolkit';
 
 const loadersSlice = createSlice({
@@ -144,7 +143,7 @@ export default loadersSlice.reducer;
 ```
 
 **Store.js**
-```javascript
+``` JavaScript
 import { configureStore } from "@reduxjs/toolkit";
 import loadersReducer from "./loadersSlice";
 import usersReducer from "./usersSlice";
@@ -161,7 +160,7 @@ export default store;
 
 **loaderSlice.js**
 
-```javascript
+``` JavaScript
 import {createSlice} from '@reduxjs/toolkit';
 
 const loadersSlice = createSlice({
@@ -186,13 +185,13 @@ export default loadersSlice.reducer;
 Our second step would be to show details if the existing user tries to login again, so the question here is how to get the details of a particular user
 
 We can get user data from the following 
-```javascript
+``` JavaScript
 const { user } = useSelector{(state) => state.users}
 ```
 
 Thus our final `protectedroute.js` is:
 
-```javascript
+``` JavaScript
 import { message } from "antd";
 import React, { useEffect} from "react";
 import { GetCurrentUser } from "../apicalls/users";
@@ -291,7 +290,7 @@ To sum up we have the following:
 ## Login
 In order to prevent the user from going back to login page after logging in we can do the following 
 
-```javascript
+``` JavaScript
 useEffect{() => {
     if(localStorage.getItem("token")){
         navigate("/");
